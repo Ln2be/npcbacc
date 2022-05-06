@@ -1,4 +1,5 @@
 import Link from "next/link";
+import React from "react";
 
 interface formType {
   isLogin: boolean;
@@ -30,12 +31,12 @@ const Form = ({ isLogin, errorMessage, space, onSubmit }: formType) => (
         <>
           {space == "admin" && (
             <Link href="/auth/signup?space=admin">
-              <a>I don't have an account</a>
+              <a>I don&apos;t have an account</a>
             </Link>
           )}
           {space == "user" && (
             <Link href="/auth/signup?space=user">
-              <a>I don't have an account</a>
+              <a>I don&apos;t have an account</a>
             </Link>
           )}
 

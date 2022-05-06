@@ -25,3 +25,16 @@ const userSchema = new Schema<TSUser>({
 
 export const DBUser =
   mongoose.models.DBUser || mongoose.model("DBUser", userSchema);
+
+interface Comment {
+  article: string;
+  value: string;
+  name: string;
+}
+const commentSchema = new Schema<Comment>({
+  article: String,
+  value: String,
+  name: String,
+});
+export const MComment =
+  mongoose.models.Comment || mongoose.model("Comment", commentSchema);
