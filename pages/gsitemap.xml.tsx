@@ -144,10 +144,7 @@ export default function Page() {
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <!--We manually set the two URLs we know already-->
     <url>
-      <loc>https://iqar.store</loc>
-    </url>
-    <url>
-      <loc>https://iqar.store/contactUs</loc>
+      <loc>https://pcbacc.com</loc>
     </url>
     ${physics
       .map(({ articles }) => {
