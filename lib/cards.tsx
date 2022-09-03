@@ -80,7 +80,7 @@ export function formDoc(subjs: any) {
               >
                 {Object.keys(subs2).map((subject2, index) => {
                   return (
-                    <Box>
+                    <Box key={index}>
                       <Box>
                         <Box sx={{ fontSize: 25 }}>{subject2}</Box>
                         {subs2[subject2].map(

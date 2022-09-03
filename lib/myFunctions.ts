@@ -2,7 +2,7 @@ export async function convertToBase64(file: File): Promise<any> {
   //Check File is not Empty
   if (file) {
     // FileReader function for read the file.
-    var fileReader = new FileReader();
+    const fileReader = new FileReader();
 
     // Convert data to base64
     fileReader.readAsDataURL(file);

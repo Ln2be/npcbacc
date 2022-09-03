@@ -72,7 +72,7 @@ export default function Page() {
                 justifyContent: "center",
               }}
             >
-              Les droits d'auteur doivent être respectés
+              Les droits d&apo;auteur doivent être respectés
             </Box>
           </Box>
           <Box
