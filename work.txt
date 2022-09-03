@@ -1,0 +1,4 @@
+Idea for static front and static end files to group all models and functions.
+use M with models and DB with database models.
+
+Create
