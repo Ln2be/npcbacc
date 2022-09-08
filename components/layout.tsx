@@ -51,6 +51,9 @@ export default function Layout({ children }: { children: JSX.Element }) {
         <Box sx={{ m: 2 }}>
           <Link href={"/courses/cinematique/cin-gen"}>Cours</Link>
         </Box>
+        <Box sx={{ m: 2 }}>
+          <Link href={"api/docs?action=apiall"}>Apiall</Link>
+        </Box>
       </Box>
       <Box
         sx={{
