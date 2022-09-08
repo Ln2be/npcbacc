@@ -38,6 +38,11 @@ export default async function handler(
     await DBDoc.deleteOne({ _id: id });
     res.send("Ok");
   }
+
+  if (query.action == "apiall") {
+    const docs = await DBDoc.find({});
+    res.send(docs);
+  }
 }
 
 // save the file
