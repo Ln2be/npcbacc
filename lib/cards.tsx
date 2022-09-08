@@ -5,10 +5,14 @@ import { useRouter } from "next/router";
 import React, { ChangeEvent, MouseEventHandler } from "react";
 import { MDoc } from "../lib/models";
 import { DBDoc } from "../lib/mongo";
-import { convertToBase64, subjects } from "../lib/myFunctions";
+import {
+  basepathServeDoc,
+  convertToBase64,
+  subjects,
+} from "../lib/myFunctions";
 
 // the form for the document
-export function formDoc(subjs: any) {
+export function showDocs(subjs: any) {
   return (
     <Box
       sx={{
@@ -16,8 +20,8 @@ export function formDoc(subjs: any) {
         flexDirection: "column",
       }}
     >
-      {Object.keys(subjs).map((subject, index) => {
-        if (subject == "general") {
+      {Object.keys(subjs).map((field, index) => {
+        if (field == "general") {
           return (
             <Box key={index}>
               <Box
@@ -28,7 +32,7 @@ export function formDoc(subjs: any) {
                   fontSize: 30,
                 }}
               >
-                {subject}
+                {field}
               </Box>
               <Box
                 sx={{
@@ -40,19 +44,21 @@ export function formDoc(subjs: any) {
                 }}
               >
                 <Box>
-                  {subjs[subject].map((name: string[], index: string) => (
-                    <Box sx={{ ml: 1 }} key={index}>
-                      <Link href={"/docs/" + subject + "/" + name[0]}>
-                        {name[0]}
-                      </Link>
-                    </Box>
-                  ))}
+                  {Object.keys(subjs[field]).map(
+                    (kind: string, index2: number) => (
+                      <Box sx={{ ml: 1 }} key={index2}>
+                        <Link href={"/docs?field=" + field + "&kind=" + kind}>
+                          {kind}
+                        </Link>
+                      </Box>
+                    )
+                  )}
                 </Box>
               </Box>
             </Box>
           );
         } else {
-          const subs2 = subjs[subject];
+          const fieldlevel = subjs[field];
           // return showDocs(subs2);
           return (
             <Box
@@ -68,7 +74,7 @@ export function formDoc(subjs: any) {
                   fontSize: 30,
                 }}
               >
-                {subject}
+                {field}
               </Box>
               <Box
                 key={index}
@@ -78,28 +84,32 @@ export function formDoc(subjs: any) {
                   gap: 1,
                 }}
               >
-                {Object.keys(subs2).map((subject2, index) => {
+                {Object.keys(fieldlevel).map((chapter, index) => {
+                  const chapterlevel = fieldlevel[chapter];
                   return (
                     <Box key={index}>
                       <Box>
-                        <Box sx={{ fontSize: 25 }}>{subject2}</Box>
-                        {subs2[subject2].map(
-                          (name: string[], index: string) => (
-                            <Box sx={{ ml: 1 }} key={index}>
-                              <Link
-                                href={
-                                  "/docs/" +
-                                  subject +
-                                  "/" +
-                                  subject2 +
-                                  "/" +
-                                  name[0]
-                                }
-                              >
-                                {name[0] + "  " + name[1]}
-                              </Link>
-                            </Box>
-                          )
+                        <Box sx={{ fontSize: 25 }}>{chapter}</Box>
+                        {Object.keys(chapterlevel).map(
+                          (kind: string, index2: number) => {
+                            const kindlevel = chapterlevel[kind];
+                            return (
+                              <Box sx={{ ml: 1 }} key={index2}>
+                                <Link
+                                  href={
+                                    "/docs?field=" +
+                                    field +
+                                    "&chapter=" +
+                                    chapter +
+                                    "&kind=" +
+                                    kind
+                                  }
+                                >
+                                  {kind + "  " + kindlevel.total}
+                                </Link>
+                              </Box>
+                            );
+                          }
                         )}
                       </Box>
                     </Box>
@@ -114,5 +124,38 @@ export function formDoc(subjs: any) {
   );
 }
 
-
-// 
+// show file
+export default function showFile(path: string, count: number) {
+  return (
+    <Box>
+      <iframe
+        src={
+          "https://drive.google.com/viewerng/viewer?embedded=true&url=" + path
+        }
+        width={"100%"}
+        height={"400px"}
+      ></iframe>
+      <Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <a target={"_blank"} rel="noreferrer" href={path} download>
+            <Button>Telecharger</Button>
+          </a>
+          <a
+            target={"_blank"}
+            rel="noreferrer"
+            href={
+              "https://wa.me/?text=" + "https://pcbacc.com/docs?count=" + count
+            }
+          >
+            <Button>Partager</Button>
+          </a>
+        </Box>
+      </Box>
+    </Box>
+  );
+}

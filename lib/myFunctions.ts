@@ -19,29 +19,63 @@ export async function convertToBase64(file: File): Promise<any> {
   }
 }
 
-export const endpoint = [
-  ["courses", "0"],
-  ["exercises", "0"],
-];
+export const endpoint = {
+  courses: { total: 0 },
+  exercises: { total: 0 },
+};
+
 export const subjects: { [key: string]: any } = {
-  general: endpoint,
+  general: {
+    courses: { total: 0 },
+    exercises: { total: 0 },
+  },
   physics: {
-    general: endpoint,
-    kinematics: endpoint,
-    dynamics: endpoint,
-    magnetism: endpoint,
+    general: {
+      courses: { total: 0 },
+      exercises: { total: 0 },
+    },
+    kinematics: {
+      courses: { total: 0 },
+      exercises: { total: 0 },
+    },
+    dynamics: {
+      courses: { total: 0 },
+      exercises: { total: 0 },
+    },
+    magnetism: {
+      courses: { total: 0 },
+      exercises: { total: 0 },
+    },
   },
   chemistry: {
-    general: endpoint,
-    kinetic: endpoint,
-    acidBase: endpoint,
-    organic: endpoint,
+    general: {
+      courses: { total: 0 },
+      exercises: { total: 0 },
+    },
+    kinetic: {
+      courses: { total: 0 },
+      exercises: { total: 0 },
+    },
+    acidBase: {
+      courses: { total: 0 },
+      exercises: { total: 0 },
+    },
+    organic: {
+      courses: { total: 0 },
+      exercises: { total: 0 },
+    },
   },
 };
 
 // the basepath for storing documents
 const isProduction = process.env.NODE_ENV === "production";
 
-export const basepathDoc = isProduction
+export const basepathSaveDoc = isProduction
   ? "/var/www/docs"
   : "/home/elhassen/Downloads/docs";
+
+// the base path
+
+export const basepathServeDoc = isProduction
+  ? "https://pcbacc.com/docs/"
+  : "http://localhost/images/docs/";

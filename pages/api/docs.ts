@@ -4,31 +4,40 @@ import * as fs from "node:fs/promises";
 import { Buffer, Blob } from "node:buffer";
 import { MDoc } from "../../lib/models";
 import { DBDoc, updateCounter } from "../../lib/mongo";
-import { basepathDoc } from "../../lib/myFunctions";
+import { basepathSaveDoc } from "../../lib/myFunctions";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const body = req.body as MDoc;
+  const query = req.query;
 
-  console.log(body);
-  const promisePaths = body.files.map(async (file) => {
-    return await savePdf(file);
-    // body.files.push(path);
-  });
+  if (query.action == "save") {
+    console.log(body);
+    const promisePaths = body.files.map(async (file) => {
+      return await savePdf(file);
+      // body.files.push(path);
+    });
 
-  const paths = (await Promise.all(promisePaths)) as string[];
+    const paths = (await Promise.all(promisePaths)) as string[];
 
-  const counter = await updateCounter("docs");
+    const counter = await updateCounter("docs");
 
-  body.count = counter
+    body.count = counter;
 
-  body.files = paths;
+    body.files = paths;
 
-  console.log(paths);
-  const resDoc = await new DBDoc(body).save();
-  res.send(body);
+    console.log(paths);
+    const resDoc = await new DBDoc(body).save();
+    res.send(body);
+  }
+
+  if (query.action == "delete") {
+    const id = query.id;
+    await DBDoc.deleteOne({ _id: id });
+    res.send("Ok");
+  }
 }
 
 // save the file
@@ -36,12 +45,12 @@ async function savePdf(base64doc: string) {
   const cleanBase64 = base64doc.split(",")[1];
   const buf = Buffer.from(cleanBase64, "base64");
 
-  const datennow = Date.now();
+  const datenow = Date.now();
 
-  const path = basepathDoc + "/" + datennow + ".pdf";
+  const path = basepathSaveDoc + "/" + datenow + ".pdf";
   return new Promise((resolve) => {
     fs.writeFile(path, buf, "base64").then(() => {
-      resolve(path);
+      resolve(datenow);
     });
   });
 }

@@ -1,14 +1,17 @@
 import { Box, Button, MenuItem, TextField } from "@mui/material";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import React, { ChangeEvent, MouseEventHandler, useState } from "react";
 import { MDoc } from "../lib/models";
-import { convertToBase64, basepathDoc, subjects } from "../lib/myFunctions";
+import { convertToBase64, subjects } from "../lib/myFunctions";
 
+// the model to send
+const doc = {} as MDoc;
+doc.field = "general";
+doc.kind = "courses";
 export default function Page() {
   const [field, setField] = useState("");
-
-  // the model to send
-  const doc = {} as MDoc;
+  const router = useRouter();
 
   async function handleFile(e: ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
@@ -25,13 +28,14 @@ export default function Page() {
 
   // submit the doc
   async function handleSubmit() {
-    await fetch("/api/docs", {
+    await fetch("/api/docs?action=save", {
       method: "Post",
       body: JSON.stringify(doc),
       headers: {
         "Content-Type": "application/json",
       },
     });
+    router.push("/upload");
   }
 
   return (
@@ -205,9 +209,9 @@ export default function Page() {
                 helperText=""
                 required
               >
-                {subjects["general"].map((key: any, index: string) => (
-                  <MenuItem key={index} value={key[0]}>
-                    {key[0]}
+                {Object.keys(subjects["general"]).map((key, index) => (
+                  <MenuItem key={index} value={key}>
+                    {key}
                   </MenuItem>
                 ))}
               </TextField>
@@ -225,7 +229,6 @@ export default function Page() {
                   type="file"
                   hidden
                   onChange={handleFile}
-                  multiple
                   accept="application/pdf"
                 />
               </Button>
