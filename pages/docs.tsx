@@ -47,7 +47,7 @@ export default function Page({ inject }: { inject: string }) {
 
 interface Inject {
   docs: MDoc[];
-  isubjects: {};
+  isubjects: any;
 }
 // this function excuted in the server
 export async function getServerSideProps({
@@ -69,7 +69,7 @@ export async function getServerSideProps({
 
   if (action == "docs") {
     const docs = await DBDoc.find({});
-    for (let doc of docs) {
+    for (const doc of docs) {
       const field = doc.field;
       const kind = doc.kind;
       const chapter = doc.chapter;
