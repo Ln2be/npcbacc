@@ -40,8 +40,8 @@ export default async function handler(
   }
 
   if (query.action == "apiall") {
-    const docs = await DBDoc.find({});
-    res.send(docs);
+    // const docs = await DBDoc.find({});
+    res.send("hello");
   }
 }
 
