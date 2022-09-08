@@ -6,7 +6,12 @@ import React, { ChangeEvent, MouseEventHandler } from "react";
 import showFile, { showDocs } from "../lib/cards";
 import { MDoc } from "../lib/models";
 import { DBDoc } from "../lib/mongo";
-import { basepathSaveDoc, convertToBase64, subjects } from "../lib/myFunctions";
+import {
+  basepathSaveDoc,
+  basepathServeDoc,
+  convertToBase64,
+  subjects,
+} from "../lib/myFunctions";
 
 export default function Page({ inject }: { inject: string }) {
   const injectO = JSON.parse(inject) as Inject;
