@@ -64,7 +64,7 @@ export async function getServerSideProps({
 }: {
   query: { [key: string]: string };
 }) {
-  const inject = {} as Inject;
+  const inject = { docs: [], isubjects: {} } as Inject;
   const { count, action, field, chapter, kind } = query;
   let doc = {} as MDoc;
 
