@@ -35,7 +35,7 @@ export default function Page() {
         "Content-Type": "application/json",
       },
     });
-    router.push("/upload");
+    router.push("/");
   }
 
   return (
