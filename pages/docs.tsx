@@ -49,6 +49,7 @@ export default function Page({ inject }: { inject: string }) {
       <>{query.action == "docs" && showDocs(isubjects)}</>
       {/* <>{query.action == "form" && showDocs(subjects)}</> */}
       <>{query.action == "cdocs" && showCDocs()}</>
+      <>{query.count && showCDocs()}</>
     </>
   );
 }
