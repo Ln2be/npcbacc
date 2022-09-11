@@ -1,9 +1,13 @@
-export interface MDoc {
+export interface MDoc extends TMDoc {
   name: string;
   tel: string;
   field: string;
   chapter: string;
   kind: string;
-  files: string[];
-  count: number;
+  file: Blob;
+  count: string;
+}
+
+interface TMDoc {
+  [field: string]: string | Blob;
 }

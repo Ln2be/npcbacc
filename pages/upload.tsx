@@ -7,6 +7,8 @@ import { convertToBase64, subjects } from "../lib/myFunctions";
 
 // the model to send
 const doc = {} as MDoc;
+let filename: string | undefined;
+
 doc.field = "general";
 doc.kind = "courses";
 export default function Page() {
@@ -17,24 +19,42 @@ export default function Page() {
     const files = e.target.files;
 
     if (files) {
-      doc.files = [];
-      for (let i = 0; i < files.length; i++) {
-        const file = files.item(i);
-        const fileData = file && (await convertToBase64(file));
-        doc.files.push(fileData);
+      const resFile = files.item(0);
+      // const fileData = file && (await convertToBase64(file));
+      // doc.file =  file
+      if (resFile) {
+        filename = files.item(0)?.name;
+        doc.file = resFile;
       }
     }
   }
 
   // submit the doc
   async function handleSubmit() {
-    await fetch("/api/docs?action=save", {
-      method: "Post",
-      body: JSON.stringify(doc),
-      headers: {
-        "Content-Type": "application/json",
-      },
+    // add the object to form data
+
+    const formData = new FormData();
+    for (const property in doc) {
+      if (property == "file") {
+        doc.file;
+        formData.append(property, doc[property], filename);
+      } else {
+        formData.append(property, doc[property]);
+      }
+    }
+
+    await fetch("/pcex/save", {
+      method: "post",
+      body: formData,
     });
+
+    // await fetch("/api/docs?action=save", {
+    //   method: "Post",
+    //   body: JSON.stringify(doc),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
     router.push("/");
   }
 

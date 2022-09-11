@@ -46,7 +46,7 @@ const docSchema = new Schema<MDoc>({
   field: String,
   chapter: String,
   kind: String,
-  files: [String],
+  file: String,
   count: Number,
 });
 

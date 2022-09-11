@@ -19,6 +19,28 @@ export async function convertToBase64(file: File): Promise<any> {
   }
 }
 
+// get as blob
+export async function convertToBlob(file: File): Promise<any> {
+  //Check File is not Empty
+  if (file) {
+    // FileReader function for read the file.
+    const fileReader = new FileReader();
+
+    // Convert data to base64
+    fileReader.readAsDataURL(file);
+
+    return new Promise((resolve) => {
+      // Onload of file read the file content
+      fileReader.onload = function (fileLoadedEvent) {
+        if (fileLoadedEvent.target) {
+          const blob = fileLoadedEvent.target.result;
+          resolve(blob);
+        }
+      };
+    });
+  }
+}
+
 export const endpoint = {
   courses: { total: 0 },
   exercises: { total: 0 },

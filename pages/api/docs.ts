@@ -6,32 +6,42 @@ import { Buffer } from "buffer";
 import { MDoc } from "../../lib/models";
 import { DBDoc, updateCounter } from "../../lib/mongo";
 import { basepathSaveDoc } from "../../lib/myFunctions";
+const multer = require("multer");
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const body = req.body as MDoc;
+  const body = req.body;
   const query = req.query;
+  const file = body.file;
+
+  // if (query.action == "save") {
+  //   // console.log(body);
+  //   // const promisePaths = body.files.map(async (file) => {
+  //   //   // body.files.push(path);
+  //   //   return await savePdf(file);
+  //   // });
+
+  //   const savedfile = await savePdf(file);
+
+  //   // const paths = (await Promise.all(promisePaths)) as string[];
+
+  //   const counter = await updateCounter("docs");
+
+  //   body.count = counter;
+
+  //   // body.files = paths;
+
+  //   // console.log(paths);
+  //   body.file = savedfile;
+  //   const resDoc = await new DBDoc(body).save();
+  //   res.send(body);
+  // }
 
   if (query.action == "save") {
-    console.log(body);
-    const promisePaths = body.files.map(async (file) => {
-      return await savePdf(file);
-      // body.files.push(path);
-    });
-
-    const paths = (await Promise.all(promisePaths)) as string[];
-
-    const counter = await updateCounter("docs");
-
-    body.count = counter;
-
-    body.files = paths;
-
-    console.log(paths);
-    const resDoc = await new DBDoc(body).save();
-    res.send(body);
+    console.log("docs.ts");
+    res.send("Ok");
   }
 
   if (query.action == "delete") {
