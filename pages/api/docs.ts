@@ -6,7 +6,6 @@ import { Buffer } from "buffer";
 import { MDoc } from "../../lib/models";
 import { DBDoc, updateCounter } from "../../lib/mongo";
 import { basepathSaveDoc } from "../../lib/myFunctions";
-const multer = require("multer");
 
 export default async function handler(
   req: NextApiRequest,
