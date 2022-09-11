@@ -125,7 +125,7 @@ export function showDocs(subjs: any) {
 }
 
 // show file
-export default function showFile(path: string, count: number) {
+export default function showFile(path: string, count: string) {
   return (
     <Box>
       <iframe

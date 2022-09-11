@@ -30,7 +30,7 @@ export default function Page({ inject }: { inject: string }) {
         {docs.map((doc, i) => (
           <Box key={i}>
             {showFile(
-              basepathServeDoc + "/" + doc.files[0] + ".pdf",
+              basepathServeDoc + "/" + doc.file ,
               doc.count
             )}
           </Box>
