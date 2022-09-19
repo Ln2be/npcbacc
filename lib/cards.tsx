@@ -25,6 +25,7 @@ export function showDocs(subjs: any) {
         // return showDocs(subs2);
         return (
           <Box
+            key={index}
             sx={{
               m: 1,
             }}
