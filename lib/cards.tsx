@@ -21,104 +21,66 @@ export function showDocs(subjs: any) {
       }}
     >
       {Object.keys(subjs).map((field, index) => {
-        if (field == "general") {
-          return (
-            <Box key={index}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  mb: 2,
-                  fontSize: 30,
-                }}
-              >
-                {field}
-              </Box>
-              <Box
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: {
-                    xs: "repeat(2, 1fr)",
-                    md: "repeat(3, 1fr)",
-                  },
-                }}
-              >
-                <Box>
-                  {Object.keys(subjs[field]).map(
-                    (kind: string, index2: number) => (
-                      <Box sx={{ ml: 1 }} key={index2}>
-                        <Link href={"/docs?field=" + field + "&kind=" + kind}>
-                          {kind}
-                        </Link>
-                      </Box>
-                    )
-                  )}
-                </Box>
-              </Box>
-            </Box>
-          );
-        } else {
-          const fieldlevel = subjs[field];
-          // return showDocs(subs2);
-          return (
+        const fieldlevel = subjs[field];
+        // return showDocs(subs2);
+        return (
+          <Box
+            sx={{
+              m: 1,
+            }}
+          >
             <Box
               sx={{
-                m: 1,
+                display: "flex",
+                justifyContent: "center",
+                mb: 2,
+                fontSize: 30,
               }}
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  mb: 2,
-                  fontSize: 30,
-                }}
-              >
-                {field}
-              </Box>
-              <Box
-                key={index}
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                  gap: 1,
-                }}
-              >
-                {Object.keys(fieldlevel).map((chapter, index) => {
-                  const chapterlevel = fieldlevel[chapter];
-                  return (
-                    <Box key={index}>
-                      <Box>
-                        <Box sx={{ fontSize: 25 }}>{chapter}</Box>
-                        {Object.keys(chapterlevel).map(
-                          (kind: string, index2: number) => {
-                            const kindlevel = chapterlevel[kind];
-                            return (
-                              <Box sx={{ ml: 1 }} key={index2}>
-                                <Link
-                                  href={
-                                    "/docs?field=" +
-                                    field +
-                                    "&chapter=" +
-                                    chapter +
-                                    "&kind=" +
-                                    kind
-                                  }
-                                >
-                                  {kind + "  " + kindlevel.total}
-                                </Link>
-                              </Box>
-                            );
-                          }
-                        )}
-                      </Box>
-                    </Box>
-                  );
-                })}
-              </Box>
+              {field}
             </Box>
-          );
-        }
+            <Box
+              key={index}
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: 1,
+              }}
+            >
+              {Object.keys(fieldlevel).map((chapter, index) => {
+                const chapterlevel = fieldlevel[chapter];
+                return (
+                  <Box key={index}>
+                    <Box>
+                      <Box sx={{ fontSize: 25 }}>{chapter}</Box>
+                      {Object.keys(chapterlevel).map(
+                        (kind: string, index2: number) => {
+                          const kindlevel = chapterlevel[kind];
+                          return (
+                            <Box sx={{ ml: 1 }} key={index2}>
+                              <Link
+                                href={
+                                  "/docs?field=" +
+                                  field +
+                                  "&chapter=" +
+                                  chapter +
+                                  "&kind=" +
+                                  kind
+                                }
+                              >
+                                {kind + "  " + kindlevel.total}
+                              </Link>
+                            </Box>
+                          );
+                        }
+                      )}
+                    </Box>
+                  </Box>
+                );
+              })}
+            </Box>
+          </Box>
+        );
       })}
     </Box>
   );

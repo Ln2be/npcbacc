@@ -46,10 +46,14 @@ export const endpoint = {
   exercises: { total: 0 },
 };
 
-export const subjects: { [key: string]: any } = {
+export const subjects: {
+  [key: string]: { [key: string]: { [key: string]: { total: number } } };
+} = {
   general: {
-    courses: { total: 0 },
-    exercises: { total: 0 },
+    general: {
+      courses: { total: 0 },
+      exercises: { total: 0 },
+    },
   },
   physics: {
     general: {

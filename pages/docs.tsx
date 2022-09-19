@@ -29,10 +29,7 @@ export default function Page({ inject }: { inject: string }) {
       <Box>
         {docs.map((doc, i) => (
           <Box key={i}>
-            {showFile(
-              basepathServeDoc + "/" + doc.file ,
-              doc.count
-            )}
+            {showFile(basepathServeDoc + "/" + doc.file, doc.count)}
           </Box>
         ))}
       </Box>
@@ -82,12 +79,7 @@ export async function getServerSideProps({
       const field = doc.field;
       const kind = doc.kind;
       const chapter = doc.chapter;
-
-      if (chapter) {
-        subjectInject[field][chapter][kind].total++;
-      } else {
-        subjectInject[field][kind].total++;
-      }
+      subjectInject[field][chapter][kind].total++;
     }
   }
 

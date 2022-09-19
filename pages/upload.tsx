@@ -10,6 +10,7 @@ const doc = {} as MDoc;
 let filename: string | undefined;
 
 doc.field = "general";
+doc.chapter = "general";
 doc.kind = "courses";
 export default function Page() {
   const [field, setField] = useState("");
@@ -229,11 +230,13 @@ export default function Page() {
                 helperText=""
                 required
               >
-                {Object.keys(subjects["general"]).map((key, index) => (
-                  <MenuItem key={index} value={key}>
-                    {key}
-                  </MenuItem>
-                ))}
+                {Object.keys(subjects["general"]["general"]).map(
+                  (key, index) => (
+                    <MenuItem key={index} value={key}>
+                      {key}
+                    </MenuItem>
+                  )
+                )}
               </TextField>
             </Box>
             <Box

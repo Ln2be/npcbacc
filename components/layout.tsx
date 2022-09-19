@@ -49,10 +49,10 @@ export default function Layout({ children }: { children: JSX.Element }) {
           <Link href={"/courses/cinematique/cin-gen"}>Exercices</Link>
         </Box>{" "}
         <Box sx={{ m: 2 }}>
-          <Link href={"/courses/cinematique/cin-gen"}>Cours</Link>
+          <Link href={"/docs?action=docs"}>Tous les docs</Link>
         </Box>
         <Box sx={{ m: 2 }}>
-          <Link href={"api/docs?action=apiall"}>Apiall</Link>
+          <Link href={"/upload"}>Ajouter un doc</Link>
         </Box>
       </Box>
       <Box
