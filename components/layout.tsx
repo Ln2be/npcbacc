@@ -6,8 +6,10 @@ import ImgHeader from "./header.svg";
 import { width } from "@mui/system";
 import Article from "./article";
 import React from "react";
+import { useRouter } from "next/router";
 
 export default function Layout({ children }: { children: JSX.Element }) {
+  const router = useRouter();
   return (
     <Box
       sx={{
@@ -45,9 +47,7 @@ export default function Layout({ children }: { children: JSX.Element }) {
         <Box sx={{ m: 2 }}>
           <Link href={"/courses/cinematique/cin-gen"}>Cours</Link>
         </Box>
-        <Box sx={{ m: 2 }}>
-          <Link href={"/courses/cinematique/cin-gen"}>Exercices</Link>
-        </Box>{" "}
+
         <Box sx={{ m: 2 }}>
           <Link href={"/docs?action=docs"}>Tous les docs</Link>
         </Box>
@@ -60,7 +60,7 @@ export default function Layout({ children }: { children: JSX.Element }) {
           gridArea: "sidebar",
         }}
       >
-        <PCNav></PCNav>
+        {router.pathname.startsWith("/courses") && <PCNav></PCNav>}
       </Box>
       <Box sx={{ gridArea: "main" }}>
         <Article>{children}</Article>

@@ -1,17 +1,11 @@
 import { Box, Button } from "@mui/material";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { ChangeEvent, MouseEventHandler } from "react";
+import React from "react";
 import showFile, { showDocs } from "../lib/cards";
 import { MDoc } from "../lib/models";
 import { DBDoc } from "../lib/mongo";
-import {
-  basepathSaveDoc,
-  basepathServeDoc,
-  convertToBase64,
-  subjects,
-} from "../lib/myFunctions";
+import { basepathServeDoc, subjects } from "../lib/myFunctions";
 
 export default function Page({ inject }: { inject: string }) {
   const injectO = JSON.parse(inject) as Inject;
