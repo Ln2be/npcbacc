@@ -45,7 +45,7 @@ export default function Page({ inject }: { inject: string }) {
       </Head>
       <>{query.action == "docs" && showDocs(isubjects)}</>
       {/* <>{query.action == "form" && showDocs(subjects)}</> */}
-      <>{query.action == "cdocs" && showCDocs()}</>
+      <>{query.field && showCDocs()}</>
       <>{query.count && showCDocs()}</>
     </>
   );
@@ -86,11 +86,7 @@ export async function getServerSideProps({
   if (field) {
     const all = await DBDoc.find({});
     const docs = all.filter((doc) => {
-      if (field == "general") {
-        return doc.field == field && doc.kind == kind;
-      } else {
-        return doc.field == field && doc.chapter == chapter && doc.kind == kind;
-      }
+      return doc.field == field && doc.chapter == chapter && doc.kind == kind;
     });
 
     inject.docs = docs;

@@ -9,6 +9,7 @@ import {
   basepathServeDoc,
   convertToBase64,
   subjects,
+  translate,
 } from "../lib/myFunctions";
 
 // the form for the document
@@ -38,7 +39,7 @@ export function showDocs(subjs: any) {
                 fontSize: 30,
               }}
             >
-              {field}
+              {translate[field]}
             </Box>
             <Box
               key={index}
@@ -53,7 +54,9 @@ export function showDocs(subjs: any) {
                 return (
                   <Box key={index}>
                     <Box>
-                      <Box sx={{ fontSize: 25 }}>{chapter}</Box>
+                      {field != "general" && (
+                        <Box sx={{ fontSize: 25 }}>{translate[chapter]}</Box>
+                      )}
                       {Object.keys(chapterlevel).map(
                         (kind: string, index2: number) => {
                           const kindlevel = chapterlevel[kind];
@@ -69,7 +72,7 @@ export function showDocs(subjs: any) {
                                   kind
                                 }
                               >
-                                {kind + "  " + kindlevel.total}
+                                {translate[kind] + "  " + kindlevel.total}
                               </Link>
                             </Box>
                           );

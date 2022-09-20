@@ -93,6 +93,21 @@ export const subjects: {
   },
 };
 
+//
+export const translate: { [key: string]: string } = {
+  general: "Général",
+  physics: "Physique",
+  chemistry: "Chimie",
+  courses: "Cours",
+  exercises: "Exercices",
+  kinematics: "Cinématique",
+  dynamics: "Dynamique",
+  magnetism: "Magnétisme",
+  kinetic: "Cinétique",
+  acidBase: "Acide Base",
+  organic: "Organique",
+};
+
 // the basepath for storing documents
 const isProduction = process.env.NODE_ENV === "production";
 
