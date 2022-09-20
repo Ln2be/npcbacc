@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { ChangeEvent, MouseEventHandler, useState } from "react";
 import { MDoc } from "../lib/models";
-import { convertToBase64, subjects } from "../lib/myFunctions";
+import { convertToBase64, subjects, translate } from "../lib/myFunctions";
 
 // the model to send
 const doc = {} as MDoc;
@@ -14,6 +14,7 @@ doc.chapter = "general";
 doc.kind = "courses";
 export default function Page() {
   const [field, setField] = useState("");
+  const [errorfile, setError] = useState(false);
   const router = useRouter();
 
   async function handleFile(e: ChangeEvent<HTMLInputElement>) {
@@ -26,37 +27,42 @@ export default function Page() {
       if (resFile) {
         filename = files.item(0)?.name;
         doc.file = resFile;
+        console.log("file size = " + resFile.size);
       }
     }
   }
 
-  // submit the doc
   async function handleSubmit() {
-    // add the object to form data
+    if (doc.file.size < 1100000) {
+      // submit the doc
+      // add the object to form data
 
-    const formData = new FormData();
-    for (const property in doc) {
-      if (property == "file") {
-        doc.file;
-        formData.append(property, doc[property], filename);
-      } else {
-        formData.append(property, doc[property]);
+      const formData = new FormData();
+      for (const property in doc) {
+        if (property == "file") {
+          doc.file;
+          formData.append(property, doc[property], filename);
+        } else {
+          formData.append(property, doc[property]);
+        }
       }
+
+      await fetch("/pcex/save", {
+        method: "post",
+        body: formData,
+      });
+
+      // await fetch("/api/docs?action=save", {
+      //   method: "Post",
+      //   body: JSON.stringify(doc),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+      router.push("/");
+    } else {
+      setError(true);
     }
-
-    await fetch("/pcex/save", {
-      method: "post",
-      body: formData,
-    });
-
-    // await fetch("/api/docs?action=save", {
-    //   method: "Post",
-    //   body: JSON.stringify(doc),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    router.push("/");
   }
 
   return (
@@ -175,7 +181,7 @@ export default function Page() {
               >
                 {Object.keys(subjects).map((key, index) => (
                   <MenuItem key={index} value={key}>
-                    {key}
+                    {translate[key]}
                   </MenuItem>
                 ))}
               </TextField>
@@ -202,7 +208,7 @@ export default function Page() {
                 >
                   {Object.keys(subjects[field]).map((key, index) => (
                     <MenuItem key={index} value={key}>
-                      {key}
+                      {translate[key]}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -233,7 +239,7 @@ export default function Page() {
                 {Object.keys(subjects["general"]["general"]).map(
                   (key, index) => (
                     <MenuItem key={index} value={key}>
-                      {key}
+                      {translate[key]}
                     </MenuItem>
                   )
                 )}
@@ -242,12 +248,13 @@ export default function Page() {
             <Box
               sx={{
                 display: "flex",
+                flexDirection: "column",
                 justifyContent: "space-between",
                 m: 1,
               }}
             >
               <Button variant="outlined" component="label">
-                Documents
+                Document
                 <input
                   type="file"
                   hidden
@@ -255,6 +262,13 @@ export default function Page() {
                   accept="application/pdf"
                 />
               </Button>
+              <small
+                style={{
+                  color: errorfile ? "red" : "black",
+                }}
+              >
+                Le fichier ne doit pas depasser 1MB
+              </small>
             </Box>
           </Box>
           <Box
