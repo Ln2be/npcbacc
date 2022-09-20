@@ -59,7 +59,52 @@ export async function getServerSideProps({
   const { count, action, field, chapter, kind } = query;
   let doc = {} as MDoc;
 
-  const subjectInject = subjects;
+  const subjectInject: {
+    [key: string]: { [key: string]: { [key: string]: { total: number } } };
+  } = {
+    general: {
+      general: {
+        courses: { total: 0 },
+        exercises: { total: 0 },
+      },
+    },
+    physics: {
+      general: {
+        courses: { total: 0 },
+        exercises: { total: 0 },
+      },
+      kinematics: {
+        courses: { total: 0 },
+        exercises: { total: 0 },
+      },
+      dynamics: {
+        courses: { total: 0 },
+        exercises: { total: 0 },
+      },
+      magnetism: {
+        courses: { total: 0 },
+        exercises: { total: 0 },
+      },
+    },
+    chemistry: {
+      general: {
+        courses: { total: 0 },
+        exercises: { total: 0 },
+      },
+      kinetic: {
+        courses: { total: 0 },
+        exercises: { total: 0 },
+      },
+      acidBase: {
+        courses: { total: 0 },
+        exercises: { total: 0 },
+      },
+      organic: {
+        courses: { total: 0 },
+        exercises: { total: 0 },
+      },
+    },
+  };
 
   if (count) {
     const resDoc = await DBDoc.findOne({ count: count });
