@@ -250,6 +250,13 @@ export function UserForm({
             <Button onClick={submitLogin} variant="contained">
               login
             </Button>
+            <Box
+              sx={{
+                mt: 4,
+              }}
+            >
+              <Link href={"/sign?action=signup"}>creer un compte</Link>
+            </Box>
           </Box>
         </Box>
       ) : (

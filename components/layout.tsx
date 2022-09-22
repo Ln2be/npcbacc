@@ -5,10 +5,11 @@ import Image from "next/image";
 import Article from "./article";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useUser } from "../lib/auth/hooks";
 
 export default function Layout({ children }: { children: JSX.Element }) {
   const router = useRouter();
-
+  const user = useUser();
   return (
     <Box
       sx={{
@@ -68,10 +69,15 @@ export default function Layout({ children }: { children: JSX.Element }) {
             <Link href={"/upload"}>Ajouter un doc</Link>
           </Box>
         </Box>
-
-        <Box sx={{ m: 2 }}>
-          <Link href={"/sign?action=login"}>Login</Link>
-        </Box>
+        {user ? (
+          <Box sx={{ m: 2 }}>
+            <Link href={"/sign?action=login"}>Login</Link>
+          </Box>
+        ) : (
+          <Box sx={{ m: 2 }}>
+            <Link href={"/api/auth/logout"}>Login</Link>
+          </Box>
+        )}
       </Box>
 
       <Box

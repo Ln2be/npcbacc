@@ -16,7 +16,7 @@ export default function Page() {
     <Box>
       {action == "login" && <UserForm isLogin></UserForm>}
       {action == "signup" && role == "admino" && <UserForm isAdmin></UserForm>}
-      {action == "signup" && role == "rep" && <UserForm></UserForm>}
+      {action == "signup" && !role && <UserForm></UserForm>}
     </Box>
     // </Layout>
   );
