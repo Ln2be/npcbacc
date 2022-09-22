@@ -69,7 +69,7 @@ export default function Layout({ children }: { children: JSX.Element }) {
             <Link href={"/upload"}>Ajouter un doc</Link>
           </Box>
         </Box>
-        {user ? (
+        {!user ? (
           <Box sx={{ m: 2 }}>
             <Link href={"/sign?action=login"}>Login</Link>
           </Box>
