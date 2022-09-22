@@ -33,7 +33,10 @@ export default function Page() {
   }
 
   async function handleSubmit() {
-    if (doc.file.size < 1100000) {
+    const ar = filename?.split(".");
+    let pdf;
+    pdf = ar && ar[ar.length - 1] == "pdf";
+    if (doc.file.size < 1100000 && pdf) {
       // submit the doc
       // add the object to form data
 
@@ -51,14 +54,6 @@ export default function Page() {
         method: "post",
         body: formData,
       });
-
-      // await fetch("/api/docs?action=save", {
-      //   method: "Post",
-      //   body: JSON.stringify(doc),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
       router.push("/");
     } else {
       setError(true);

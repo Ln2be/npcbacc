@@ -2,14 +2,13 @@ import Box from "@mui/material/Box";
 import PCNav from "./pcnav";
 import Link from "next/link";
 import Image from "next/image";
-import ImgHeader from "./header.svg";
-import { width } from "@mui/system";
 import Article from "./article";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function Layout({ children }: { children: JSX.Element }) {
   const router = useRouter();
+
   return (
     <Box
       sx={{
@@ -43,24 +42,46 @@ export default function Layout({ children }: { children: JSX.Element }) {
         {/* <img src={ImgHeader}></img> */}
         {/* </Box> */}
       </Box>
-      <Box sx={{ gridArea: "nav", display: "flex", flexDirection: "row" }}>
-        <Box sx={{ m: 2 }}>
-          <Link href={"/courses/cinematique/cin-gen"}>Cours</Link>
+      <Box
+        sx={{
+          gridArea: "nav",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box sx={{ m: 2 }}>
+            <Link href={"/courses/cinematique/cin-gen"}>Cours</Link>
+          </Box>
+
+          <Box sx={{ m: 2 }}>
+            <Link href={"/docs?action=docs"}>Tous les docs</Link>
+          </Box>
+          <Box sx={{ m: 2 }}>
+            <Link href={"/upload"}>Ajouter un doc</Link>
+          </Box>
         </Box>
 
         <Box sx={{ m: 2 }}>
-          <Link href={"/docs?action=docs"}>Tous les docs</Link>
-        </Box>
-        <Box sx={{ m: 2 }}>
-          <Link href={"/upload"}>Ajouter un doc</Link>
+          <Link href={"/sign?action=login"}>Login</Link>
         </Box>
       </Box>
+
       <Box
         sx={{
           gridArea: "sidebar",
         }}
       >
-        {router.pathname.startsWith("/courses") && <PCNav></PCNav>}
+        {(router.pathname.startsWith("/courses") || router.pathname == "/") && (
+          <PCNav></PCNav>
+        )}
       </Box>
       <Box sx={{ gridArea: "main" }}>
         <Article>{children}</Article>

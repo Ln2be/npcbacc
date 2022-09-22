@@ -3,8 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // import * as fs from "node:fs/promises";
 import { promises as fs } from "fs";
 import { Buffer } from "buffer";
-import { MDoc } from "../../lib/models";
-import { DBDoc, updateCounter } from "../../lib/mongo";
+import { DBDoc } from "../../lib/mongo";
 import { basepathSaveDoc } from "../../lib/myFunctions";
 
 export default async function handler(
@@ -15,43 +14,18 @@ export default async function handler(
   const query = req.query;
   const file = body.file;
 
-  // if (query.action == "save") {
-  //   // console.log(body);
-  //   // const promisePaths = body.files.map(async (file) => {
-  //   //   // body.files.push(path);
-  //   //   return await savePdf(file);
-  //   // });
-
-  //   const savedfile = await savePdf(file);
-
-  //   // const paths = (await Promise.all(promisePaths)) as string[];
-
-  //   const counter = await updateCounter("docs");
-
-  //   body.count = counter;
-
-  //   // body.files = paths;
-
-  //   // console.log(paths);
-  //   body.file = savedfile;
-  //   const resDoc = await new DBDoc(body).save();
-  //   res.send(body);
-  // }
-
-  if (query.action == "save") {
-    console.log("docs.ts");
-    res.send("Ok");
-  }
-
-  if (query.action == "delete") {
-    const id = query.id;
-    await DBDoc.deleteOne({ _id: id });
-    res.send("Ok");
-  }
-
   if (query.action == "apiall") {
     const docs = await DBDoc.find({});
     res.send(docs);
+  }
+
+  if (query.action == "delete") {
+    const count = query.count;
+    const doc = await DBDoc.findOne({ count: count });
+    await fs.unlink(basepathSaveDoc + doc.file);
+    await DBDoc.deleteOne({ count: count });
+
+    res.send("Ok");
   }
 }
 

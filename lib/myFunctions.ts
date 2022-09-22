@@ -112,8 +112,8 @@ export const translate: { [key: string]: string } = {
 const isProduction = process.env.NODE_ENV === "production";
 
 export const basepathSaveDoc = isProduction
-  ? "/var/www/docs"
-  : "/home/elhassen/Downloads/docs";
+  ? "/var/www/docs/"
+  : "/home/elhassen/Downloads/docs/";
 
 // the base path
 

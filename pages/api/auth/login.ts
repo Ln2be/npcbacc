@@ -38,6 +38,6 @@ export default nextConnect()
 
       res.status(200).send({ done: true });
     } catch (error) {
-      console.error(error);
+      throw error;
     }
   });

@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import showFile, { showDocs } from "../lib/cards";
+import showFile, { showDocs } from "../components/cards";
 import { MDoc } from "../lib/models";
 import { DBDoc } from "../lib/mongo";
 import { basepathServeDoc, subjects } from "../lib/myFunctions";
@@ -23,7 +23,7 @@ export default function Page({ inject }: { inject: string }) {
       <Box>
         {docs.map((doc, i) => (
           <Box key={i}>
-            {showFile(basepathServeDoc + "/" + doc.file, doc.count)}
+            {showFile(basepathServeDoc + doc.file, doc.count)}
           </Box>
         ))}
       </Box>

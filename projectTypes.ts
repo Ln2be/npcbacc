@@ -7,4 +7,5 @@ export interface UserType {
   _id?: string;
   id?: string;
   createdAt?: number;
+  tel: string;
 }

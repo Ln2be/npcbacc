@@ -11,6 +11,7 @@ interface TSUser {
   salt: string;
   password: string;
   role: string;
+  tel: string;
   //   _id?: string;
 }
 
@@ -22,6 +23,7 @@ const userSchema = new Schema<TSUser>({
   salt: String,
   password: String,
   role: String,
+  tel: String,
 });
 
 export const DBUser =

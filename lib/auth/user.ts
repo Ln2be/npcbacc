@@ -10,7 +10,7 @@ import { DBUser } from "../mongo";
 
 // const users = [];
 
-export async function createUser({ username, password, role }: UserType) {
+export async function createUser({ username, password, role, tel }: UserType) {
   // Here you should create the user and save the salt and hashed password (some dbs may have
   // authentication methods that will do it for you so you don't have to worry about it):
   const salt = crypto.randomBytes(16).toString("hex");
@@ -25,6 +25,7 @@ export async function createUser({ username, password, role }: UserType) {
     hash,
     salt,
     role,
+    tel,
   };
 
   // This is an in memory store for users, there is no data persistence without a proper DB
@@ -43,7 +44,7 @@ export async function findUser({ username }: { username: string }) {
   // return users.find((user) => user.username === username);
 
   // use the database
-  return DBUser.findOne<UserType>({ username: username });
+  return DBUser.findOne<UserType>({ tel: username });
 }
 
 export async function getUser({ username }: { username: string }) {
