@@ -34,8 +34,7 @@ export default function Page() {
 
   async function handleSubmit() {
     const ar = filename?.split(".");
-    let pdf;
-    pdf = ar && ar[ar.length - 1] == "pdf";
+    const pdf = ar && ar[ar.length - 1] == "pdf";
     if (doc.file.size < 1100000 && pdf) {
       // submit the doc
       // add the object to form data
