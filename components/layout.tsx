@@ -75,7 +75,7 @@ export default function Layout({ children }: { children: JSX.Element }) {
           </Box>
         ) : (
           <Box sx={{ m: 2 }}>
-            <Link href={"/api/auth/logout"}>Login</Link>
+            <Link href={"/api/auth/logout"}>logout</Link>
           </Box>
         )}
       </Box>
